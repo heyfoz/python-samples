@@ -142,7 +142,7 @@ class ResumeHelper:           # Class definition
             self.reset_listeners() # Clear all button listener variables (set both to 0)
         
     def open_json_file_resume(self): # Define open json file function
-        print('Open JSON File Resume button selected:') # Visibilty of system status
+        print('Open JSON File Resume button selected:') # Visibility of system status
         self.create_timestamp() # Debugging/visibility of system status
         # Run terminal command to open the JSON file with TextEdit on Mac
         os.system('open -a TextEdit ' + self.backup_json_file_pathname) 
@@ -257,7 +257,7 @@ def main():     # Define main method
     root = Tk() # Top level root window created with Tk constructor
     # Declare object resume_helper of class ResumeHelper and use root parameter to initialize the object    
     resume_helper = ResumeHelper(root) 
-    print('Resume Helper initiated! :)') # Visibilty of application startup
+    print('Resume Helper initiated! :)') # Visibility of application startup
     resume_helper.create_timestamp() # Test create_timestamp function when main method is run and create date_time_string object
     root.title('Resume Helper!')  # Set root/tk window title
     
@@ -271,7 +271,7 @@ def main():     # Define main method
     resume_helper.set_geometry_string(resume_helper.get_tk_window_width(), resume_helper.get_tk_window_height(),
                                       resume_helper.get_tk_window_left_position(), resume_helper.get_tk_window_top_position())
     root.geometry(resume_helper.get_geometry_string()) # Use geometry string value as argument to format tk window size/position
-    # Debugging and visibilty of GUI metadata
+    # Debugging and visibility of GUI metadata
     print('Window Left Position: '+str(resume_helper.get_tk_window_left_position()))
     print('Window Top Position: '+str(resume_helper.get_tk_window_top_position()))
     print('Display winfo width: '+str(resume_helper.get_tk_window_width()))
@@ -481,7 +481,7 @@ class CountryForm:            # Class definition
         self.flat_string = (self.country_string + '\n' + self.question1_string + '\n' +
                             self.question2_string + '\n' + self.question3_string) 
         self.flat_file_string = self.date_time_string + 'Forrest_Moulin_Country_Form.txt' # Flat file name
-        print('Creating ' + self.flat_file_string + '...') # Visibilty of function status
+        print('Creating ' + self.flat_file_string + '...') # Visibility of function status
         self.output = open(self.flat_file_string, 'w') # Write output using flat_file_string as .txt file name
         for line in self.flat_string: # For each line in the flat string
             self.output.write(line)   # Write a new line to the flat file output
@@ -568,7 +568,7 @@ if __name__ == '__main__': main()    # If __name__ variable equals '__main__', c
 # End of country_form.py
 
 #!/usr/bin/env python3
-# Traffic Light utilizes GPIO Zero modules as well as sleep, pause, and datetime to provide visibilty/audibility
+# Traffic Light utilizes GPIO Zero modules as well as sleep, pause, and datetime to provide visibility/audibility
 # of a simple traffic light sequence
 # Developed by Forrest Moulin
 
@@ -621,7 +621,7 @@ class TrafficLight:
         self.buzzer_increment = 0.5 # Increment of time in seconds that the light will flash and the buzzer will sound
         
     def go_green(self): # Green light method
-        if self.green_time == self.max_green_time: # Visibilty of green light status
+        if self.green_time == self.max_green_time: # Visibility of green light status
             print('Green light on at: ' + self.get_time()) 
 
         while self.green_time >= self.buzzer_increment: # While the green light still has time left,
@@ -646,7 +646,7 @@ class TrafficLight:
     def go_red(self): # Red light method
         print('Yellow timed out at: ' + self.get_time()) # Visibility of yellow light status
         self.redled.on() # Turn red led on
-        print('Red light on at: ' + self.get_time()) # Visibilty of red light status
+        print('Red light on at: ' + self.get_time()) # Visibility of red light status
 
 def main(): # Define main method
     trafficlight = TrafficLight() # Class instance object
@@ -764,7 +764,7 @@ class PythonProject: # Class definition
 #         Label(master,image=self.img).pack(pady=10)
         
     def start_mac_script(self):                   # Define start Scripts method
-        print("Mac script opened:") # Visibilty of system status
+        print("Mac script opened:") # Visibility of system status
         self.create_timestamp() # Debugging/timestamp metadata collection
         # Send terminal command via paramiko ssh client exec_command
         # Use osacript command to set volume and second command to confirm the change using the say
@@ -851,7 +851,7 @@ class PythonProject: # Class definition
 #         os.system('mv /path/to/directory/' + self.json_file_string + ' /new_directory') 
   
     def print_results(self): # Define print_results method, which will print hidden hostname, username, and password to the console. 
-        print("SSH Connection Results") # Visibilty of system status
+        print("SSH Connection Results") # Visibility of system status
         hidden_host = ""
         hidden_user = ""
         hidden_psw = ""
