@@ -8,4 +8,4 @@ There are 3 Python script files located in the sample:
 4. PythonProject - a GUI application that uses SSH to connect to Mac/Windows devices on a network, running scripts on each of the devices. 
 
 A text file is provided in the repository, but the contents can be accessed via this link:
-https://github.com/ffm5113/python_samples/blob/main/Forrest_Moulin_Python_GUI_Samples.txt
+<a href="https://github.com/ffm5113/python_samples/blob/main/Forrest_Moulin_Python_GUI_Samples.txt">Python GUI Samples TXT File</a>
