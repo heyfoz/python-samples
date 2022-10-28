@@ -9,3 +9,5 @@ There are 4 Python script files located in the sample:
 
 A text file is provided in the repository, but the contents can be accessed via this link:
 <a href="https://github.com/ffm5113/python_samples/blob/main/Forrest_Moulin_Python_GUI_Samples.txt">Python GUI Samples TXT File</a>
+
+Copyright (c) 2022 ffm5113
