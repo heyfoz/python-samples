@@ -390,12 +390,11 @@ from tkinter import ttk       # Import ttk from tkinter module
 import tkinter.font as font   # Font customization
 import json                   # Import JSON module
 import sqlite3                # Import sqlite3 module for interacting with databases
-from datetime import datetime # datetime is used to print the time that that the buttons are selected/timestamp creation
-
-class CountryForm:            # Class definition
-    
-    def __init__(self, master): # Define __init__ method with self and master parameters
-        
+from datetime import datetime # datetime used to get time that buttons are selected as timestamp
+# Class definition
+class CountryForm:            
+    # Define __init__ method with self and master parameters
+    def __init__(self, master): 
         # Font configuration
         button_text_font = font.Font(family='Calibri', size=16)
         title_font = font.Font(family='Calibri', size=20)
@@ -406,21 +405,29 @@ class CountryForm:            # Class definition
         self.frame_header.pack(pady=5)  
         self.header_text = StringVar()
         self.header_text = ' Country Feedback Form - Version 1.0 ' 
-        self.header_label = ttk.Label(self.frame_header, text=self.header_text, font=title_font, borderwidth=1, relief='solid')
+        self.header_label = ttk.Label(self.frame_header, 
+                                      text=self.header_text, 
+                                      font=title_font, borderwidth=1, relief='solid')
         self.header_label.grid(row=0, column=0, padx=5, pady=5)
         # Combo box object created using root as parent, and country as the text variable
         self.combobox = ttk.Combobox(master, justify='center', state='readonly') 
-        self.combobox.pack(pady=5) # Geometry manager pack method to pack combobox into top level window
-        self.combobox.config(values=('U.S.', 'Canada', 'Mexico', 'Brazil', 'Portugal')) # Set string values for combo box option
-        self.combobox.set('Select Country') # Set combobox pseudoprompt
+        # Geometry manager pack method to pack combobox into top level window
+        self.combobox.pack(pady=5) 
+        # Set string values for combo box option
+        self.combobox.config(values=('U.S.', 'Canada', 'Mexico', 'Brazil', 'Portugal')) 
+        # Set combobox pseudoprompt
+        self.combobox.set('Select Country') 
         # When combobox is selected, use the callback method defined below
         self.combobox.bind('<<ComboboxSelected>>', self.combobox_callback) 
-        self.country_string = str() # String variable that is updated based on combobox selection
+        # String variable that is updated based on combobox selection
+        self.country_string = str() 
         
         # Question 1
-        self.question1 = ttk.Label(master, text = ' 1. What do you enjoy about this country? (Select all that apply) ',
-                                   font=button_text_font)
-        self.question1.pack(pady=5) # Use geometry manager to pack the first question into the top level window
+        self.question1 = ttk.Label(
+            master, text = ' 1. What do you enjoy about this country? (Select all that apply) ',
+            font=button_text_font)
+        # Use geometry manager to pack the first question into the top level window
+        self.question1.pack(pady=5) 
         # Define string variables for question 1 answers
         self.selection1 = StringVar()
         self.selection2 = StringVar()
@@ -430,40 +437,48 @@ class CountryForm:            # Class definition
         self.question1_answer = StringVar()
         self.question1_string = str()
         # Create checkbutton objects
-        self.checkbutton1 = ttk.Checkbutton(
-            master, text='The people', variable=self.selection1, offvalue='', onvalue='people')
-        self.checkbutton2 = ttk.Checkbutton(
-            master, text='The landscape', variable=self.selection2, offvalue='', onvalue='landscape')
-        self.checkbutton3 = ttk.Checkbutton(
-            master, text='The climate', variable=self.selection3, offvalue='', onvalue='climate')
-        self.checkbutton4 = ttk.Checkbutton(
-            master, text='The entertainment', variable=self.selection4, offvalue='', onvalue='entertainment')
-        self.checkbutton5 = ttk.Checkbutton(
-            master, text='The opportunities', variable=self.selection5, offvalue='', onvalue='opportunities')
-
+        self.checkbutton1 = ttk.Checkbutton(master, text='The people', 
+                                            variable=self.selection1, offvalue='', 
+                                            onvalue='people')
+        self.checkbutton2 = ttk.Checkbutton(master, text='The landscape', 
+                                            variable=self.selection2, offvalue='', 
+                                            onvalue='landscape')
+        self.checkbutton3 = ttk.Checkbutton(master, text='The climate', 
+                                            variable=self.selection3, offvalue='', 
+                                            onvalue='climate')
+        self.checkbutton4 = ttk.Checkbutton(master, text='The entertainment', 
+                                            variable=self.selection4, offvalue='', 
+                                            onvalue='entertainment')
+        self.checkbutton5 = ttk.Checkbutton(master, text='The opportunities', 
+                                            variable=self.selection5, offvalue='', 
+                                            onvalue='opportunities')
         # Use geometry manager to pack the check buttons
         self.checkbutton1.pack()
-        
         self.checkbutton1
         self.checkbutton2.pack()
         self.checkbutton3.pack()
         self.checkbutton4.pack()
         self.checkbutton5.pack()
-
         # Create question 2, using master as parent) # Create question 2, using master as parent
-        self.question2 = ttk.Label(master, text='2. What is your gender?', font=button_text_font)                             
-        self.question2.pack(pady=10) # Use geometry manager to pack the second question into the top level window
-        
-        self.gender = StringVar() # Create gender string variable for question 2 answer
-        self.gender.set('Gender_not_selected') # Set the gender variable to the default value of 'Gender not selected'
-        self.question2_string = str() # String variable updates based on question 2 selection
-        
+        self.question2 = ttk.Label(master, text='2. What is your gender?', font=button_text_font)   
+        # Use geometry manager to pack the second question into the top level window
+        self.question2.pack(pady=10) 
+        # Create gender string variable for question 2 answer
+        self.gender = StringVar() 
+        # Set the gender variable to the default value of 'Gender not selected'
+        self.gender.set('Gender_not_selected') 
+        # String variable updates based on question 2 selection
+        self.question2_string = str() 
         # Create radiobutton objects
-        self.radiobutton1 = ttk.Radiobutton(master, text='Male', variable=self.gender, value='Male')
-        self.radiobutton2 = ttk.Radiobutton(master, text='Female', variable=self.gender, value='Female')
-        self.radiobutton3 = ttk.Radiobutton(master, text='Other', variable=self.gender, value='Other')
+        self.radiobutton1 = ttk.Radiobutton(master, text='Male', 
+                                            variable=self.gender, value='Male')
+        self.radiobutton2 = ttk.Radiobutton(master, text='Female', 
+                                            variable=self.gender, value='Female')
+        self.radiobutton3 = ttk.Radiobutton(master, text='Other',
+                                            variable=self.gender, value='Other')
         self.radiobutton4 = ttk.Radiobutton(
-            master, text='Prefer not to answer', variable=self.gender, value='Prefer not to answer')
+            master, text='Prefer not to answer', 
+            variable=self.gender, value='Prefer not to answer')
         # Use geometry manager to pack the check buttons
         self.radiobutton1.pack()
         self.radiobutton2.pack()
@@ -472,7 +487,8 @@ class CountryForm:            # Class definition
 
         # Second frame named frame_content
         self.frame_content = ttk.Frame(master)
-        self.frame_content.pack(pady=10) # Use geometry manager to pack the frame_content frame into the top level window
+        # Use geometry manager to pack the frame_content frame into the top level window
+        self.frame_content.pack(pady=10) 
         # Question 3/Feedback
         ttk.Label(
             self.frame_content, text = '3. Please enter your feedback in the text box below:', font = button_text_font).grid(
@@ -481,107 +497,167 @@ class CountryForm:            # Class definition
             self.frame_content, font = text_box_font, width = 50, height = 10, highlightbackground = 'black',
             highlightcolor = 'black', highlightthickness=1, wrap=WORD) # Text box formatting
         self.text_comments.grid(row = 1, column=0, padx=10, pady=10) # Load text box into frame
-        self.question3_answer = StringVar() # String var for interacting with text box
-        self.question3_string = str() # String for printing/file creation
-        
-        self.button_frame1 = ttk.Frame(master) # Frame that contains submit and clear buttons
-        self.button_frame1.pack(pady=5) # Use geometry manager to pack the button_frame1 into the top level window
-        
-        self.print_button = ttk.Button(self.button_frame1, text = 'Print Form', command = self.print_form) # Create print form button
-        self.print_button.grid(row = 0, column=0, padx=5, pady=5) # Use .grid() method to place submit button in button_frame1
-        self.clear_button = ttk.Button(self.button_frame1, text = 'Clear Form', command = self.clear_form) # Create clear form button
-        self.clear_button.grid(row = 0, column=1, padx=5, pady=5) # Use .grid() method to place clear button in button_frame1
-        
-        self.file_frame = ttk.Frame(master) # Frame that contains file buttons
-        self.file_frame.pack(pady=10) # Use geometry manager to pack the file_frame into the top level window
-        
+        # String var for interacting with text box
+        self.question3_answer = StringVar() 
+        # String for printing/file creation
+        self.question3_string = str() 
+        # Frame that contains submit and clear buttons
+        self.button_frame1 = ttk.Frame(master) 
+        # Use geometry manager to pack the button_frame1 into the top level window
+        self.button_frame1.pack(pady=5) 
+        # Create print form button
+        self.print_button = ttk.Button(self.button_frame1, 
+                                       text = 'Print Form', command = self.print_form) 
+        # Use .grid() method to place submit button in button_frame1
+        self.print_button.grid(row = 0, column=0, padx=5, pady=5) 
+        # Create clear form button
+        self.clear_button = ttk.Button(self.button_frame1, 
+                                       text = 'Clear Form', command = self.clear_form) 
+        # Use .grid() method to place clear button in button_frame1
+        self.clear_button.grid(row = 0, column=1, padx=5, pady=5) 
+        # Frame that contains file buttons
+        self.file_frame = ttk.Frame(master) 
+        # Use geometry manager to pack the file_frame into the top level window
+        self.file_frame.pack(pady=10) 
         # Create file dump buttons        
-        self.flat_button = ttk.Button(self.file_frame, text = 'Flat File', command = self.flat_file, width = 12)
+        self.flat_button = ttk.Button(self.file_frame, 
+                                      text = 'Flat File', 
+                                      command = self.flat_file, width = 12)
         self.flat_button.grid(row = 0, column=0, padx=5, pady=5)
-        self.json_button = ttk.Button(self.file_frame, text = 'JSON File', command = self.json_file, width = 12)
+        self.json_button = ttk.Button(self.file_frame, 
+                                      text = 'JSON File', 
+                                      command = self.json_file, width = 12)
         self.json_button.grid(row = 0, column=1, padx=5, pady=5)
         # SQLite Button
-        self.sqlite_button = ttk.Button(self.file_frame, text = 'SQLite Database', command = self.sqlite, width = 12)
+        self.sqlite_button = ttk.Button(self.file_frame, 
+                                        text = 'SQLite Database', 
+                                        command = self.sqlite, width = 12)
         self.sqlite_button.grid(row = 0, column=2, padx=5, pady=5)
- 
-    def combobox_callback(self, event): # Define callback method using self and event parameters
+    # Define callback method using self and event parameters
+    def combobox_callback(self, event): 
         # Update header_label depending on country selection
         self.header_label.config(text = ' ' + self.combobox.get() + ' Feedback Form - Version 1.0 ') 
-        print(self.combobox.get(), 'selected\n') # Print country selection for debugging
-        self.combobox.selection_clear()       # Clear the highlighted selection in the combobox
-    
-    def clear_checkboxes(self):      # Define method to clear checkboxes
-        print('-Checkboxes cleared (Question 1):', end = ' ') # Print message that shows checkboxs are being cleared
-        print(self.question1_string)                         # Print selected checkboxes as string before clearing
-        self.selection1.set('')                              # Checkboxes set to offvalues
+        # Print country selection for debugging
+        print(self.combobox.get(), 'selected\n') 
+        # Clear the highlighted selection in the combobox
+        self.combobox.selection_clear()       
+    # Define method to clear checkboxes
+    def clear_checkboxes(self):      
+        # Print message that shows checkboxs are being cleared
+        print('-Checkboxes cleared (Question 1):', end = ' ') 
+        # Print selected checkboxes as string before clearing
+        print(self.question1_string)      
+        # Checkboxes set to offvalues
+        self.selection1.set('')                             
         self.selection2.set('')
         self.selection3.set('')
         self.selection4.set('')
         self.selection5.set('')
-    
-    def update_strings(self): # Define update_strings method to get/update appropriate strings for form priting/file creation
-        if self.combobox.get() == 'Select Country':     # If combobox is not selected
-            self.country_string = 'No_country_selected' # Set country string to default value
-        else:                                              # Else print as intended
-            self.country_string = str(self.combobox.get()) # Country string set to value of combobox selection
-        # Concatenate question 1 answers
-        self.question1_answers = (self.selection1.get() + ' ' + self.selection2.get() + ' ' +
-                                 self.selection3.get() + ' ' + self.selection4.get() + ' ' + self.selection5.get()) 
-        # Strip white space to the right and left of the str
-        self.question1_string = re.sub(' +', ' ', str(self.question1_answers.strip())) 
-        
-        if len(self.question1_string) == 0: # If the string length is 0
-            self.question1_string = 'No_answers_selected' # Set the question1 answer to the default null value
+    # Define update_strings method to get/update appropriate strings for form priting/file creation 
+    def update_strings(self):
+        # If combobox is not selected
+        if self.combobox.get() == 'Select Country':     
+            # Set country string to default value
+            self.country_string = 'No_country_selected' 
+        # Else print as intended    
+        else:                      
+            # Country string set to value of combobox selection
+            self.country_string = str(self.combobox.get()) 
+            # Concatenate question 1 answers
+            self.question1_answers = (self.selection1.get() + ' ' + 
+                                      self.selection2.get() + ' ' +
+                                      self.selection3.get() + ' ' + 
+                                      self.selection4.get() + ' ' + 
+                                      self.selection5.get()) 
+            # Strip white space to the right and left of the str
+            self.question1_string = re.sub(' +', ' ', 
+                                           str(self.question1_answers.strip())) 
+        # If the string length is 0
+        if len(self.question1_string) == 0: 
+            # Set the question1 answer to the default null value
+            self.question1_string = 'No_answers_selected' 
         # Question 2 string set to value of gender variable
         self.question2_string = str(self.gender.get())
         # Question 3 string set to the value of the question 3 answer text box
         # Get the text box from line 1, character 0 to the end of the text box
         self.question3_answer = self.text_comments.get(1.0, 'end') 
-        self.question3_string = str(self.question3_answer.strip()) # Strip the string to remove whitespace/new line at the end
-        if len(self.question3_string) == 0:                        # If the string length is 0
-            self.question3_string = 'No_feedback_provided'         # Set question 3 string to default no feedback provided value        
+        # Strip the string to remove whitespace/new line at the end
+        self.question3_string = str(self.question3_answer.strip()) 
+        # If the string length is 0
+        if len(self.question3_string) == 0:                        
+            # Set question 3 string to default no feedback provided value        
+            self.question3_string = 'No_feedback_provided'         
+    # Define print form method (to sonsole)       
+    def print_form(self):    
+        # Print for debugging
+        print('Print button selected:\n' + self.format_title_bar()) 
+        # Debugging/timestamp metadata collection
+        self.create_timestamp() 
+        # Get string variables from form selection
+        self.update_strings() 
+        # Print country selection
+        print('-Country:', self.country_string)
+        # Print Question 1 selection(s)       
+        print('-Question 1 selection(s)/answer string:', self.question1_string)
+        # Print the gender selection
+        print('-Question 2 selection/answer string: ' + self.question2_string)
+        # Print the feedback from the text box
+        print('-Question 3 feedback/answer string:', self.question3_string) 
+        # Formatting
+        print(self.format_title_bar() + '\nForm printed\n') 
+    # Define clear method    
+    def clear_form(self): 
+        # Visibility of clear form function
+        print('Clear button selected:\n'+ self.format_title_bar()) 
+        # Debugging/timestamp metadata collection
+        self.create_timestamp() 
+        # Get string variables from form selection
+        self.update_strings() 
+        # Print country selection
+        print('-Country cleared from the drop down selection:', self.country_string) 
+        # Clear the header label
+        self.header_label.config(text=self.header_text) 
+        # Set combobox value to display 'Select Country' as a pseudoprompt
+        self.combobox.set('Select Country')               
+        # Clear the highlighted selection in the combobox      
+        self.combobox.selection_clear()              
+        # Clear check boxes by setting the variables to offvalue of ''
+        self.clear_checkboxes()                           
         
-    def print_form(self):    # Define print form method (to sonsole)   
-        print('Print button selected:\n' + self.format_title_bar()) # Print for debugging
-        self.create_timestamp() # Debugging/timestamp metadata collection
-        self.update_strings() # get string variables from form selection
-        print('-Country:', self.country_string) # Print country selection
-        print('-Question 1 selection(s)/answer string:', self.question1_string) # Print Question 1 selection(s)         
-        print('-Question 2 selection/answer string: ' + self.question2_string)  # Print the gender selection
-        print('-Question 3 feedback/answer string:', self.question3_string) # Print the feedback from the text box
-        print(self.format_title_bar() + '\nForm printed\n') # Formatting
-        
-    def clear_form(self): # Define clear method
-        print('Clear button selected:\n'+ self.format_title_bar()) # Visibility of clear form function
-        self.create_timestamp() # Debugging/timestamp metadata collection
-        self.update_strings() # get string variables from form selection
-        print('-Country cleared from the drop down selection:', self.country_string) # Print country selection
-        
-        self.header_label.config(text=self.header_text) # Clear the header label
-        self.combobox.set('Select Country')               # Set combobox value to display 'Select Country' as a pseudoprompt
-        self.combobox.selection_clear()                   # Clear the highlighted selection in the combobox      
-        self.clear_checkboxes()                           # Clear check boxes by setting the variables to offvalue of ''
-        
-        # Clear the radio button selections by setting the gender variable back to its default value of 'Gender not selected'
-        print('-Radio button cleared (Question 2):', self.gender.get()) # Print the question 2 value being cleared
-        self.gender.set('Gender_not_selected') # Reset gender variable to default value (updates question 2 radio button selections)
-        
-        if len(self.question3_string) > 0:                   # If the text box string is not null,
-            self.text_comments.delete(1.0, 'end')            # Delete text field from line 1, char 0 to the end
-        print('-Feedback cleared (Question 3): ' + self.question3_string) # Print the question 3 value being cleared
-        print(self.format_title_bar() + '\nForm cleared\n') # Visibility of system status
+        # Clear the radio button selections by setting the gender 
+        # variable back to its default value of 'Gender not selected'
+        # Print the question 2 value being cleared
+        print('-Radio button cleared (Question 2):', self.gender.get()) 
+        # Reset gender variable to default value (updates question 2 radio button selections)
+        self.gender.set('Gender_not_selected') 
+        # If the text box string is not null,
+        if len(self.question3_string) > 0:                   
+            # Delete text field from line 1, char 0 to the end
+            self.text_comments.delete(1.0, 'end')            
+        # Print the question 3 value being cleared
+        print('-Feedback cleared (Question 3): ' + self.question3_string) 
+        # Visibility of system status
+        print(self.format_title_bar() + '\nForm cleared\n') 
    
     # Input/Output documentation - https://docs.python.org/3/tutorial/inputoutput.html
-    def flat_file(self):                    # Define flat file method
-        print('Flat file button selected:') # Visibility of system status
-        self.create_timestamp() # Debugging/timestamp metadata collection
-        self.update_strings()                # Update all strings before creating file
+    def flat_file(self): # Define flat file method
+        # Visibility of system status
+        print('Flat file button selected:') 
+        # Debugging/timestamp metadata collection
+        self.create_timestamp() 
+        # Update all strings before creating file
+        self.update_strings()                
         # Concatenate the string to be used for flat file
-        self.flat_string = (self.country_string + '\n' + self.question1_string + '\n' +
-                            self.question2_string + '\n' + self.question3_string) 
-        self.flat_file_string = self.date_time_string + 'Forrest_Moulin_Country_Form.txt' # Flat file name
-        print('Creating ' + self.flat_file_string + '...') # Visibility of function status
-        self.output = open(self.flat_file_string, 'w') # Write output using flat_file_string as .txt file name
+        self.flat_string = (self.country_string + '\n' + 
+                            self.question1_string + '\n' +
+                            self.question2_string + '\n' + 
+                            self.question3_string) 
+        # Flat file name
+        self.flat_file_string = self.date_time_string + 'Forrest_Moulin_Country_Form.txt' 
+        # Visibility of function status
+        print('Creating ' + self.flat_file_string + '...') 
+        # Write output using flat_file_string as .txt file name
+        self.output = open(self.flat_file_string, 'w') 
         for line in self.flat_string: # For each line in the flat string
             self.output.write(line)   # Write a new line to the flat file output
         self.output.close()           # Close output
@@ -607,7 +683,8 @@ class CountryForm:            # Class definition
         }
         print(json.dumps(self.data), end = '\n\n') # Debugging
         self.date_time_string = str()
-        self.json_file_string = self.date_time_string + 'Forrest_Moulin_Country_Form.json' # JSON file name
+        # JSON file name
+        self.json_file_string = self.date_time_string + 'Forrest_Moulin_Country_Form.json' 
         print('Creating ' + self.json_file_string + '...') # Debugging
         with open(self.json_file_string, 'w') as outfile: # Print to JSON file
             json.dump(self.data, outfile)                 # Dump data dictionary to json outfile
@@ -629,41 +706,60 @@ class CountryForm:            # Class definition
             number INT,
             string TEXT
             )''')
-        # Insert python string variables and assign integer to each. ? is used to assign variable parameters
-        cur.execute('insert into test(number, string) values (?, ?)', (0, self.country_string))
-        cur.execute('insert into test(number, string) values (?, ?)', (1, self.question1_string))
-        cur.execute('insert into test(number, string) values (?, ?)', (2, self.question2_string))
-        cur.execute('insert into test(number, string) values (?, ?)', (3, self.question3_string))        
-        for row in cur.execute('select * from test'): # For each row in the table, select all data from the row and print it
+        # Insert python string variables and assign integer to each. 
+        # Used to assign variable parameters
+        cur.execute('insert into test(number, string) 
+                    values (?, ?)', (0, self.country_string))
+        cur.execute('insert into test(number, string) 
+                    values (?, ?)', (1, self.question1_string))
+        cur.execute('insert into test(number, string) 
+                    values (?, ?)', (2, self.question2_string))
+        cur.execute('insert into test(number, string) 
+                    values (?, ?)', (3, self.question3_string))        
+        # For each row in the table, select all data from the row and print it
+        for row in cur.execute('select * from test'): 
             print(row)
         db.close() # Close the database connection
         print('')  # Formatting for next output
-        
-    def create_timestamp (self):        # Define function to capture time and date (used in file naming)
-        self.timestamp = datetime.now() # Capture timestamp using now function from datetime module
-        self.date = str(self.timestamp.strftime('%m.%d.%Y')) # Create str that displays date using . separators in MM.DD.YYYY format
-        self.time = str(datetime.now().time())[:-7]     # time str used for timestamp on file name
-        self.time = self.time.replace(':', '.')         # Replace timestamp colons with . for file name formatting
-        self.date_time_string = self.date + '_' + self.time + '_' # Facilitate file naming
-        print('Date: '+self.date+', Time: '+self.time+'\n') # Visibility of date and time
-
-    def format_title_bar(self): # Define function to create title bar with - characters (length 100)
+    # Define function to capture time and date (used in file naming)    
+    def create_timestamp (self):        
+        # Capture timestamp using now function from datetime module            
+        self.timestamp = datetime.now() 
+        # Create str that displays date using . separators in MM.DD.YYYY format            
+        self.date = str(self.timestamp.strftime('%m.%d.%Y')) 
+        # time str used for timestamp on file name                    
+        self.time = str(datetime.now().time())[:-7]     
+        # Replace timestamp colons with . for file name formatting
+        self.time = self.time.replace(':', '.')         
+        # Facilitate file naming
+        self.date_time_string = self.date + '_' + self.time + '_' 
+        # Visibility of date and time
+        print('Date: '+self.date+', Time: '+self.time+'\n') 
+    # Define function to create title bar with - characters (length 100)
+    def format_title_bar(self): 
         self.title_format_bar = ''
         for x in range(100):
             self.title_format_bar += '-'
         return self.title_format_bar
-    
-def main():                         # Define main method  
-    root = Tk()                     # Top level root window created with Tk constructor
-    countryform = CountryForm(root) # Declare object countryform of class CountryForm
-    display_width = root.winfo_screenwidth() # Get display resolution width
-    display_height = root.winfo_screenheight() # Get display resolution height
-    root.title('Country Form - Forrest Moulin') # Tk instance title (window title)
-    root.geometry(str(display_width)+'x'+str(display_height)) # Set root window to display resolution size (maximized)
-    root.mainloop()                  # Used to loop the application in order to monitor for command events
+# Define main method      
+def main():                         
+    # Top level root window created with Tk constructor                    
+    root = Tk()                     
+    # Declare object countryform of class CountryForm                    
+    countryform = CountryForm(root) 
+    # Get display resolution width                
+    display_width = root.winfo_screenwidth() 
+    # Get display resolution height                    
+    display_height = root.winfo_screenheight() 
+     # Tk instance title (window title)                
+    root.title('Country Form - Forrest Moulin')
+    # Set root window to display resolution size (maximized)                    
+    root.geometry(str(display_width)+'x'+str(display_height)) 
+    # Used to loop the application in order to monitor for command events
+    root.mainloop()                  
     print(dir(CountryForm))
-if __name__ == '__main__': main()    # If __name__ variable equals '__main__', call the main method
-
+# If __name__ variable equals '__main__', call the main method                    
+if __name__ == '__main__': main()    
 # End of country_form.py
 
 #!/usr/bin/env python3
