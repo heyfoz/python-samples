@@ -1,5 +1,5 @@
 # python_samples
-This repository contains samples of Python 3 applications developed to run on Mac, utilizing object-oriented development principles and line commenting. 
+This repository contains samples of Python 3 applications developed to run on Mac/Raspberry Pi, utilizing object-oriented development principles and line commenting. 
 
 There are 4 Python script files located in the sample:
 1. ResumeHelper - a python GUI application developed to facilitate the retrieval and copying of local resume files (txt, json) on Mac
